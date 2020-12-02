@@ -3,4 +3,5 @@ import numpy as np
 
 
 def matrix_shape(matrix):
-    return np.asarray(np.shape(matrix))
+    shape = list(np.shape(matrix))
+    return shape
