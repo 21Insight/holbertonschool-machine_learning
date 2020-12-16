@@ -9,7 +9,6 @@ def get_length(rows):
     return []
 
 
-
 def matrix_shape(matrix):
     """Calculates the shape of a matrix"""
     return [*get_length(matrix)]

@@ -8,4 +8,3 @@ def matrix_transpose(matrix):
     range_ax1 = range(len(matrix))
 
     return [[matrix[j][i] for j in range_ax1] for i in range_ax0]
-

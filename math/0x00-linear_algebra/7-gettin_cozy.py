@@ -8,4 +8,3 @@ def cat_matrices2D(mat1, mat2, axis=0):
         return [row.copy() for row in [*mat1, *mat2]]
     elif axis == 1 and len(mat1) == len(mat2):
         return [mat1[i].copy() + mat2[i].copy() for i in range(len(mat1))]
-
