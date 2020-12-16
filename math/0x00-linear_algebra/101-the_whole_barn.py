@@ -21,7 +21,6 @@ def add_rows(row1, row2):
     return [row1[i] + row2[i] for i in range(len(row1))]
 
 
-
 def add_matrices(mat1, mat2):
     """Adds two matrices 2D"""
 
