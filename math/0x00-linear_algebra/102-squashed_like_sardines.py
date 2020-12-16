@@ -2,30 +2,35 @@
 """Concatenates two matrices along a specific axis"""
 
 
-def get_length(rows):
-    """Recursive function used to calculate the length"""
-    if rows and (type(rows) is list or type(rows) is tuple):
-        return [len(rows), *get_length(rows[0])]
-    return []
-
-
 def matrix_shape(matrix):
     """Calculates the shape of a matrix"""
-    return [*get_length(matrix)]
+    shape = []
+    if type(matrix) is list:
+        shape.append(len(matrix))
+        shape += matrix_shape(matrix[0])
+
+    return shape
 
 
-def concatenate_rows(row1, row2, axis):
-    """Concatenates rows recursively"""
-    if axis == 0:
-        return row1 + row2
-    range_row = range(len(row1))
-    return [concatenate_rows(row1[i], row2[i], axis - 1) for i in range_row]
+def concatenation(mat1, mat2, iter_axis, axis):
+    """Made concatenation """
+    if iter_axis == axis:
+        concat = mat1[:] + mat2[:]
+        return concat
+    new_arr = []
+    for x in zip(mat1, mat2):
+        new_arr.append(concatenation(x[0], x[1], iter_axis + 1, axis))
+    return new_arr
 
 
 def cat_matrices(mat1, mat2, axis=0):
-    """ Concatenates two matrices along a specific axis"""
-    shape_matrix1 = matrix_shape(mat1)
-    shape_matrix2 = matrix_shape(mat2)
-    if shape_matrix1[axis + 1:] != shape_matrix2[axis + 1:]:
+    """Concatenates two matrices along a specific axis"""
+    checks = [
+        cond[0] == cond[1] if ax != axis else True
+        for ax, cond in enumerate(zip(matrix_shape(mat1), matrix_shape(mat2)))
+    ]
+
+    if all(checks):
+        return (concatenation(mat1, mat2, 0, axis))
+    else:
         return None
-    return concatenate_rows(mat1, mat2, axis)
