@@ -9,3 +9,4 @@ def matrix_shape(matrix):
         shape.append(len(matrix))
         shape += matrix_shape(matrix[0])
     return shape
+

@@ -14,3 +14,4 @@ def mat_mul(mat1, mat2):
     result = [[sum([mat1[i][k] * mat2[k][j] for k in rax])
                for j in range2] for i in range1]
     return result
+
