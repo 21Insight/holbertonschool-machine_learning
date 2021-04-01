@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Function calculates optimum num clusters"""
+"""
+Function calculates optimum num clusters
+"""
 
 
 import numpy as np
@@ -9,28 +11,37 @@ variance = __import__('2-variance').variance
 
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     """
-     calculate optimun num clusters
-    :param X: np.ndarray, (n, d)
-    :param kmin: pos int, contain min num clusters
-    :param kmax: pos int contain max num clusters
-    :param iterations: pos int contains max num inters
-    :return: results, d_vars, or None, None
+    Calculate optimun num clusters
     """
-    if not isinstance(kmin, int) or kmin < 1:
+    if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None
-    if not isinstance(kmax, int) or kmax < 1:
+
+    if kmax is None:
+        kmax = X.shape[0]
+
+    if type(kmin) is not int or kmin <= 0 or X.shape[0] <= kmin:
         return None, None
-    if kmin >= kmax:
+
+    if type(kmax) is not int or kmax <= 0 or X.shape[0] < kmax:
         return None, None
-    try:
-        results = []
-        d_vars = []
-        kmin_km = kmeans(X, kmin)
-        kmin_var = variance(X, kmin_km)
-        for m in range(kmin, kmax + 1):
-            C, clss = kmeans(X, k)
-            results.append((C, clss))
-            d_vars.append(kmin_var - variance(X, C))
-        return (results, d_vars)
-    except Exception:
+
+    if kmax <= kmin:
         return None, None
+
+    if type(iterations) is not int or iterations <= 0:
+        return None, None
+
+    results = []
+    d_vars = []
+
+    for k in range(kmin, kmax + 1):
+        C, clss = kmeans(X, k, iterations)
+        results.append((C, clss))
+
+        if k == kmin:
+            max_var = variance(X, C)
+
+        total_var = variance(X, C)
+        d_vars.append(max_var - total_var)
+
+    return results, d_vars
