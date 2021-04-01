@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-initialize variables for a Gaussian Mixture Model
+Initialize variables for a Gaussian Mixture Model
 """
 
 import numpy as np
@@ -9,10 +9,7 @@ kmeans = __import__('1-kmeans').kmeans
 
 def initialize(X, k):
     """
-    initialize variuables
-    :param X: np.ndarray, (n, d) data set
-    :param k: pos int, num clusters
-    :return: pi, m, S, or None, None, None
+    Initialize variables
     """
 
     centroids = kmeans(X, k)[0]
